@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+# ---------------------------------------------- #
+# This script only calls the actual method       #
+# that exeuctes the analysis.                    #
+# ---------------------------------------------- #
+
+import os
+import sys
+import argparse
+from blasperin import *
+
+
+parseargs = argparse.ArgumentParser(description="BLAST AnEnDB Fasta protein files.")
+parseargs.add_argument('--label', help="A name to identify the process.", required=True)
+parseargs.add_argument('--author', help="Your name to identify who is calling this process.", required=True)
+parseargs.add_argument('--fasta-files-directory', help="Full path to where you have the Fasta files.", required=True)
+parseargs.add_argument('--log-file', help="Full path (including the file name) to the log file.", required=True)
+args = parseargs.parse_args()
+
+# Load Blasperin.
+blasperin = Blasperin(
+        label=args.label,
+        author=args.author,
+        fasta_files_directory=args.fasta_files_directory,
+        log_file=args.log_file,
+        )
+
+# Execute BLAST.
+blasperin.execute_analysis()
