@@ -15,6 +15,7 @@ parseargs = argparse.ArgumentParser(description="BLAST AnEnDB Fasta protein file
 parseargs.add_argument('--label', help="A name to identify the process.", required=True)
 parseargs.add_argument('--author', help="Your name to identify who is calling this process.", required=True)
 parseargs.add_argument('--fasta-files-directory', help="Full path to where you have the Fasta files.", required=True)
+parseargs.add_argument('--num-threads', help="Number of threads blastp will use. Default 1.", required=True)
 parseargs.add_argument('--log-file', help="Full path (including the file name) to the log file.", required=True)
 args = parseargs.parse_args()
 
@@ -23,6 +24,7 @@ blasperin = Blasperin(
         label=args.label,
         author=args.author,
         fasta_files_directory=args.fasta_files_directory,
+        num_threads=args.num_threads,
         log_file=args.log_file,
         )
 

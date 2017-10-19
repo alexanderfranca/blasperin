@@ -14,10 +14,15 @@ class Blasperin():
     Check configurations, required softwares and run the clustering of EC numbers Fasta files.
     """
 
-    def __init__(self, label=None, author=None, fasta_files_directory=None, log_file=None):
+    def __init__(self, label=None, author=None, fasta_files_directory=None, num_threads=None, log_file=None):
 
         self.label = label
         self.author = author
+
+        if num_threads:
+            self.num_threads = num_threads
+        else:
+            self.num_threads = 1
 
         # Keep tracking of what EC files is being clustered.
         self.current_fasta_file = None
@@ -95,7 +100,7 @@ class Blasperin():
             self.log.info("BLAST PROTEINS! : " + fasta_file)
 
             os.popen(
-                "blastp -query " +
+                "blastp -num_threads " + self.num_threads + " -query " +
                 fasta_file +
                 " -outfmt '6 qseqid sseqid pident ppos score bitscore qstart qend sstart send qlen slen evalue' -evalue 0.1 -num_alignments 10000000 -db " +
                 fasta_file +
